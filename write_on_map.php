@@ -1,23 +1,6 @@
 <?php
 
-function defineBsq($arr) {
-
-	$result = $arr;
-	$max;
-	for ($i = 0; $i < count($arr); $i++) {
-		$result[$i][0] = $arr[$i][0];
-		if ($result[$i][0] == 1) {
-			$max = 1;
-		}
-	}
-
-	for ($i = 0; $i < count($arr[0]); $i++) {
-		$result[0][$i] = $arr[0][$i];
-		if ($result[0][$i] == 1) {
-			$max = 1;
-		}
-	}
-
+function drawBsq($max, $map) {
 	for ($i = 1; $i < count($arr); $i++) {
 		for ($j = 1; $j < count($arr[$i]); $j++) {
 			if ($arr[$i][$j] == 0) {

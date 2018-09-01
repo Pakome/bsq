@@ -102,11 +102,11 @@ if ($checkArguments !== false) {
 }
 
 $arr_map = getMap($numberOfLines);
-// print_r($arr_map);
+print_r($arr_map);
 
 $formated_map = (transformMap($arr_map));
 
-echo defineBsq($formated_map);
+echo "The biggest square is " . defineBsq($formated_map) . " tiles large \n";
 
 // Print each errors
 foreach ($errors as $error) {
