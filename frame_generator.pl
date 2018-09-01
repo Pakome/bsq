@@ -5,7 +5,7 @@ if ((scalar @ARGV) != 3) {
     exit;
 }
 
-open (MAP, ">map.txt") || die("Vous ne pouvez pas créer le fichier \"map.txt\"");
+open (MAP, ">map.txt") || die("The file 'map.txt' does not exists");
 
 my $x = $ARGV[0];
 my $y = $ARGV[1];
@@ -28,7 +28,10 @@ while ($i < $y) {
         $j++;
     }
 
-    print MAP "\n";
+    if ($i + 1 != $y) {
+    	print MAP "\n";
+	}
+
     $i++;
 }
 
