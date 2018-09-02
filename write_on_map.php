@@ -1,22 +1,30 @@
 <?php
 
-function drawBsq($max, $map) {
-	for ($i = 1; $i < count($arr); $i++) {
-		for ($j = 1; $j < count($arr[$i]); $j++) {
-			if ($arr[$i][$j] == 0) {
-				continue;
+function drawBsq($max, $arr, $result) {
+
+	$first_time_max = true;
+
+	for ($i = 0; $i < count($arr); $i++) {
+		for ($j = 0; $j < count($arr[$i]); $j++) {
+			if ($result[$i][$j] == $max && $first_time_max == true) {
+				$first_time_max = false;
+				for ($a = 0; $a !== $max; $a++) {
+					for ($b = 0; $b !== $max; $b++) {
+						$arr[$i-$a][$j-$b] = "x";
+					}
+				} 
 			}
-
-			$t = min($result[$i-1][$j], $result[$i-1][$j-1], $result[$i][$j-1]);
-			$result[$i][$j] = $t + 1;
-
-			if ($result[$i][$j] > $max) {
-				$max = $result[$i][$j];
-			}
-
 		}
 	}
-	return $max;
+	
+	echo "Map filled: \n \n";
+
+	foreach ($arr as $line) {
+		foreach ($line as $char) {
+			echo "$char";
+		}
+		echo "\n";
+	}
 
 }
 
