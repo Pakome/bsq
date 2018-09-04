@@ -28,9 +28,7 @@ while ($i < $y) {
         $j++;
     }
 
-    # if ($i + 1 != $y) {
-    	print MAP "\n";
-	# }
+    print MAP "\n";
 
     $i++;
 }
