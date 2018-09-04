@@ -96,17 +96,25 @@ function verifyMapHeight($map, $mapHeight) {
 	}
 }
 
+function deleteJumpLine($arr) {
+	for ($i = 0; $i < count($arr); $i++) {
+		array_pop($arr[$i]);
+	}
+	return $arr;
+}
+
 // If the right number of argument was given, start the main function
 if ($checkArguments !== false) {
 	$numberOfLines = getNumberLigns($argv[1]);
 }
 
+require_once("welcome.php");
 $arr_map = getMap($numberOfLines);
-// print_r($arr_map);
+$arr_map = deleteJumpLine($arr_map);
 
 $formated_map = (transformMap($arr_map));
 
-echo defineBsq($formated_map);
+echo "The biggest square is " . defineBsq($formated_map, $arr_map) . " tiles large \n";
 
 // Print each errors
 foreach ($errors as $error) {

@@ -1,6 +1,10 @@
 <?php
 
-function defineBsq($arr) {
+include_once('write_on_map.php');
+
+function defineBsq($arr, $baseMap) {
+
+	// print_r($arr);
 
 	$result = $arr;
 	$max;
@@ -33,26 +37,10 @@ function defineBsq($arr) {
 
 		}
 	}
+
+	drawBsq($max, $baseMap, $result);
 	return $max;
 
 }
-
-// Create the map
-// 01101
-// 11111
-// 01111
-// 11111
-// 11111
-// 00000
-$arr = array (
-	array(0, 1, 1, 0, 1),
-	array(1, 1, 1, 1, 0),
-	array(0, 1, 1, 1, 1),
-	array(1, 1, 1, 1, 1),
-	array(1, 1, 1, 1, 1),
-	array(0, 0, 0, 0, 0)
-);
-
-// echo defineBsq($arr);
 
 ?>
