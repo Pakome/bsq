@@ -1,5 +1,7 @@
 <?php
 
+include_once('algorithm.php');
+
 // Initiate the variables for errors
 $errors = [];
 
@@ -30,7 +32,6 @@ function getNumberLigns($file) {
         fclose($map);
         if (validatesAsInt($number_of_lines)) {
         	if(!verifyMapHeight($file, $number_of_lines)) {
-        		var_dump($number_of_lines);
         		return $number_of_lines;
         	}
         }      
@@ -39,6 +40,23 @@ function getNumberLigns($file) {
         $errors[] = "The file $file does not exist.";
         return;
     }
+}
+
+function transformMap($arr) {
+	$formated_map = $arr;
+
+	for ($i = 0; $i < count($arr); $i++) {
+		for ($j = 0; $j < count($arr[$i]); $j++) {
+			if ($formated_map[$i][$j] == ".") {
+				$formated_map[$i][$j] = preg_replace("/\./", 1, $arr[$i][$j]);
+			}
+			else if ($formated_map[$i][$j] == "o") {
+				$formated_map[$i][$j] = preg_replace("/o/", 0, $arr[$i][$j]);
+			}
+
+		}
+	}
+	return $formated_map;
 }
 
 // Verify that the value of the first line is the map's height
@@ -73,7 +91,7 @@ function verifyMapHeight($map, $mapHeight) {
 	// $mapHeight = filter_var($mapHeight, FILTER_VALIDATE_INT);
 	$mapHeight = (int)$mapHeight;
 	if ($lines !== $mapHeight) {
-		$errors[] = "The number given on first line is not equal the real map's height: $mapHeight line(s) given, $lines found(s)";
+		$errors[] = "The number given on first line is not equal the real map's height: $mapHeight line(s) given, $lines found(s).";
 		return false;
 	}
 }
@@ -84,7 +102,11 @@ if ($checkArguments !== false) {
 }
 
 $arr_map = getMap($numberOfLines);
-print_r($arr_map);
+// print_r($arr_map);
+
+$formated_map = (transformMap($arr_map));
+
+echo defineBsq($formated_map);
 
 // Print each errors
 foreach ($errors as $error) {
