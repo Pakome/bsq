@@ -1,9 +1,14 @@
 <?php
 
-include_once('algorithm.php');
+// Start the timer of the script
+$timestamp_debut = microtime(true);
 
-// Initiate the variables for errors
+include_once('algorithm.php');
+include_once("colorClass.php");
+
+// Initiate the variables for errors and colors
 $errors = [];
+$colors = new Colors();
 
 // Check that there is the right number of arguments given
 $checkArguments = checkArgv();
@@ -24,7 +29,7 @@ function getMap($numberLine) {
 }
 
 // Get the value of the first lign of the map,that the file exists and that there is no errors
-function getNumberLigns($file) {
+function getNumberLines($file) {
 	global $errors;
     if (file_exists($file)) {
         $map = fopen($file, 'r+');
@@ -42,9 +47,9 @@ function getNumberLigns($file) {
     }
 }
 
+// Formate the map, change "." by 1's and "o" by 0's so the algorithm can find the biggest square
 function transformMap($arr) {
 	$formated_map = $arr;
-
 	for ($i = 0; $i < count($arr); $i++) {
 		for ($j = 0; $j < count($arr[$i]); $j++) {
 			if ($formated_map[$i][$j] == ".") {
@@ -75,12 +80,13 @@ function validatesAsInt($number) {
 function checkArgv() {
 	global $errors;
 	global $argc;
-	if ($argc < 2) {
-		$errors[] = "You need to put a map to work with.";
-		return false;
+	if ($argc = 1) {
+		return "user generated map";
 	} else if ($argc > 2) {
 		$errors[] = "Too much parameters given.";
 		return false;
+	} else {
+		return true;
 	}
 }
 
@@ -96,6 +102,7 @@ function verifyMapHeight($map, $mapHeight) {
 	}
 }
 
+// Delete every "\n" at the end of each arrays
 function deleteJumpLine($arr) {
 	for ($i = 0; $i < count($arr); $i++) {
 		array_pop($arr[$i]);
@@ -103,22 +110,36 @@ function deleteJumpLine($arr) {
 	return $arr;
 }
 
-// If the right number of argument was given, start the main function
-if ($checkArguments !== false) {
-	$numberOfLines = getNumberLigns($argv[1]);
+// If the right number of argument was given, return the numbers of lines of the map
+if ($checkArguments == "user generated map") {
+	echo "Mode auto";
+} else if ($checkArguments !== false) {
+	$numberOfLines = getNumberLines($argv[1]);
 }
 
+// Display the logo
 require_once("welcome.php");
+
+// Loop through the map file and put each character in an array
 $arr_map = getMap($numberOfLines);
+
+// Delete the blank at the end of each arrays
 $arr_map = deleteJumpLine($arr_map);
 
+// Transform the map in 0's and 1's
 $formated_map = (transformMap($arr_map));
 
-echo "The biggest square is " . defineBsq($formated_map, $arr_map) . " tiles large \n";
+// Let the user know the size of the biggest square
+echo $colors->getColoredString("The biggest square is " . defineBsq($formated_map, $arr_map) . " tiles larges." , "black", "green") . "\n";
 
 // Print each errors
 foreach ($errors as $error) {
-	echo "There was an error: $error \n";
+	echo $colors->getColoredString("There was an error: $error", "black", "red") . "\n";
 }
+
+// Calculate the time of execution
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+echo $colors->getColoredString("Time of execution : " . $difference_ms . ' seconds.', "black", "green") . "\n";
 
 ?>

@@ -1,6 +1,8 @@
 <?php
 
-echo "\n \nBBBBBBBBBBBBBBBBB      SSSSSSSSSSSSSSS      QQQQQQQQQ              SSSSSSSSSSSSSSS      OOOOOOOOO     LLLLLLLLLLL     VVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR   
+$colors = new Colors();
+
+echo $colors->getColoredString("BBBBBBBBBBBBBBBBB      SSSSSSSSSSSSSSS      QQQQQQQQQ              SSSSSSSSSSSSSSS      OOOOOOOOO     LLLLLLLLLLL     VVVVVVVV           VVVVVVVVEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR   
 B::::::::::::::::B   SS:::::::::::::::S   QQ:::::::::QQ          SS:::::::::::::::S   OO:::::::::OO   L:::::::::L     V::::::V           V::::::VE::::::::::::::::::::ER::::::::::::::::R  
 B::::::BBBBBB:::::B S:::::SSSSSS::::::S QQ:::::::::::::QQ       S:::::SSSSSS::::::S OO:::::::::::::OO L:::::::::L     V::::::V           V::::::VE::::::::::::::::::::ER::::::RRRRRR:::::R 
 BB:::::B     B:::::BS:::::S     SSSSSSSQ:::::::QQQ:::::::Q      S:::::S     SSSSSSSO:::::::OOO:::::::OLL:::::::LL     V::::::V           V::::::VEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
@@ -17,6 +19,6 @@ B:::::::::::::::::B S::::::SSSSSS:::::S QQ::::::::::::::Q       S::::::SSSSSS:::
 B::::::::::::::::B  S:::::::::::::::SS    QQ:::::::::::Q        S:::::::::::::::SS    OO:::::::::OO   L::::::::::::::::::::::L   V:::V           E::::::::::::::::::::ER::::::R     R:::::R
 BBBBBBBBBBBBBBBBB    SSSSSSSSSSSSSSS        QQQQQQQQ::::QQ       SSSSSSSSSSSSSSS        OOOOOOOOO     LLLLLLLLLLLLLLLLLLLLLLLL    VVV            EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
                                                     Q:::::Q                                                                                                                                
-                                                     QQQQQQ \n \n";
+                                                     QQQQQQ", "cyan", "red") . "\n";
 
 ?>
