@@ -7,7 +7,7 @@ function defineBsq($arr, $baseMap) {
 	// print_r($arr);
 
 	$result = $arr;
-	$max;
+	$max = 0;
 	for ($i = 0; $i < count($arr); $i++) {
 		$result[$i][0] = $arr[$i][0];
 		if ($result[$i][0] == 1) {

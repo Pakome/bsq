@@ -3,21 +3,22 @@
 // Start the timer of the script
 $timestamp_debut = microtime(true);
 
-include_once('algorithm.php');
+include_once("algorithm.php");
 include_once("colorClass.php");
+include_once("frame_generator.php");
+include_once("main.php");
 
 // Initiate the variables for errors and colors
 $errors = [];
 $colors = new Colors();
 
 // Check that there is the right number of arguments given
-$checkArguments = checkArgv();
+// $checkArguments = checkArgv();
 
 // Get the map from the file and put it in an array
-function getMap($numberLine) {
-	global $argv;
+function getMap($numberLine, $file) {
 	$arr_map = [];
-	$map = fopen($argv[1], 'r+');
+	$map = fopen($file, 'r+');
 	for ($i = 0; $i <= $numberLine; $i++) {
     	$line = fgets($map);
     	$full_line = str_split($line);
@@ -80,13 +81,13 @@ function validatesAsInt($number) {
 function checkArgv() {
 	global $errors;
 	global $argc;
-	if ($argc = 1) {
-		return "user generated map";
+	if ($argc == 1) {
+		return 0;
 	} else if ($argc > 2) {
 		$errors[] = "Too much parameters given.";
-		return false;
+		return 1;
 	} else {
-		return true;
+		return -1;
 	}
 }
 
@@ -110,27 +111,16 @@ function deleteJumpLine($arr) {
 	return $arr;
 }
 
-// If the right number of argument was given, return the numbers of lines of the map
-if ($checkArguments == "user generated map") {
-	echo "Mode auto";
-} else if ($checkArguments !== false) {
-	$numberOfLines = getNumberLines($argv[1]);
-}
-
 // Display the logo
 require_once("welcome.php");
 
-// Loop through the map file and put each character in an array
-$arr_map = getMap($numberOfLines);
-
-// Delete the blank at the end of each arrays
-$arr_map = deleteJumpLine($arr_map);
-
-// Transform the map in 0's and 1's
-$formated_map = (transformMap($arr_map));
-
-// Let the user know the size of the biggest square
-echo $colors->getColoredString("The biggest square is " . defineBsq($formated_map, $arr_map) . " tiles larges." , "black", "green") . "\n";
+// If the right number of argument was given, start the main function
+if (checkArgv() == 0) {
+	generateMap();
+	mainFunction("map.txt");
+} else if (checkArgv() == -1) {
+	mainFunction($argv[1]);
+}
 
 // Print each errors
 foreach ($errors as $error) {
@@ -140,6 +130,6 @@ foreach ($errors as $error) {
 // Calculate the time of execution
 $timestamp_fin = microtime(true);
 $difference_ms = $timestamp_fin - $timestamp_debut;
-echo $colors->getColoredString("Time of execution : " . $difference_ms . ' seconds.', "black", "green") . "\n";
+echo $colors->getColoredString("Time of execution : " . $difference_ms . ' milliseconds.', "black", "green") . "\n";
 
 ?>

@@ -1,41 +1,41 @@
 <?php
 
-echo "Welcome on BSQ Solver \n";
+function generateMap() {
 
-echo "Please enter the height of the map: \n";
-$y = readline('$ ');
-echo "Please enter the width of the map: \n";
-$x = readline('$ ');
-echo "Please enter the density of the map: \n";
-$density = readline('$ ');
+	global $colors;
 
-echo "Height: $y \nWidth: $x \nDensity: $density\n";
+	$y = readline('Please enter the height of the map: ');
+	$x = readline('Please enter the width of the map: ');
+	$density = readline('Please enter the density of the map: ');
 
-$map = fopen("map.txt", "w+");
+	echo "Height: $y \nWidth: $x \nDensity: $density\n";
 
-$i = 0;
-$j = 0;
+	$map = fopen("map.txt", "w+");
 
-fwrite($map, "$y\n");
+	$i = 0;
+	$j = 0;
 
-while ($i < $y) {
-    $j = 0;
+	fwrite($map, "$y\n");
 
-    while ($j < $x) {
-    	if (rand(0, $y) * 2 < $density) {
-            fwrite($map, "o");
-        } else {
-            fwrite($map, ".");
-        }
+	while ($i < $y) {
+	    $j = 0;
 
-        $j++;
-    }
+	    while ($j < $x) {
+	    	if (rand(0, $y) * 2 < $density) {
+	            fwrite($map, "o");
+	        } else {
+	            fwrite($map, ".");
+	        }
 
-    fwrite($map, "\n");
+	        $j++;
+	    }
 
-    $i++;
+	    fwrite($map, "\n");
+
+	    $i++;
+	}
+
+	fclose($map);
 }
-
-fclose($map);
 
 ?>
